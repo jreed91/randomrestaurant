@@ -1,0 +1,14 @@
+
+<div ng-repeat="restaurant in restaurants">
+	<a ng-href="{{$index}}">{{restaurant.name}}</a>
+	<a ng-click="deleteRestaurant($index)">delete</a>
+</div>
+<form ng-submit="submitRestaurant()">
+	<input type="text" ng-model="restaurant.name"/>
+	<input type="text" ng-model="restaurant.address"/>
+	<input type="text" ng-model="restaurant.city"/>
+	<input type="text" ng-model="restaurant.state"/>
+	<input type="Submit" value="Add Restaurant" />
+</form>
+Restaurant {{restaurant}}<br/>
+Restaurants {{restaurants}}
