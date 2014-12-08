@@ -1,4 +1,6 @@
-			   {{coords}}
+<div ng-repeat="venue in venues">
+	<li ng-repeat="venueItem in venue">{{venueItem.VenueName.$}}</li>
+</div>
 <div class="col-md-12">
 	<div class="panel panel-default" ng-repeat="restaurant in restaurants">
 		<div class="panel-heading">
