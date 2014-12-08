@@ -15,13 +15,20 @@ var app = angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'firebase',
+    "geolocation"
   ])
+  .constant('FIREBASE_URL', 'https://randomrestaurant.firebaseio.com/')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/restaurants.html',
         controller: 'restaurantCtrl'
+      })
+       .when('/restaurants/:restaurantId', {
+        templateUrl: 'views/restaurantview.html',
+        controller: 'RestaurantViewCtrl'
       })
       .otherwise({
         redirectTo: '/'

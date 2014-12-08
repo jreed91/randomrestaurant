@@ -1,14 +1,34 @@
 'use strict';
 
-app.controller('restaurantCtrl', function($scope, Restaurant){
-	$scope.restaurants = [];
-	$scope.restaurant = {name: '', address: '', city: '', state: ''
-	};
+app.controller('restaurantCtrl', function($scope, $location, Restaurant, geolocation, Foursquare){
+	
+	$scope.coords = geolocation.getLocation().then(function(data){
+      return {lat:data.coords.latitude, long:data.coords.longitude};
+    });
+
+
+	// Foursquare.venues()
+	// 	.success(function(data, status, headers){
+	// 		$scope.venues = data.data;
+	// 	});
+	
+
+
+	$scope.restaurants = Restaurant.all;
+	$scope.restaurant = {name: '', address: '', city: '', state: ''};
+
 	$scope.submitRestaurant = function () {
-		Restaurant.save($scope.restaurant);
-		$scope.restaurant = {name: '', address: '', city: '', state: ''};
+		Restaurant.create($scope.restaurant).then(function (ref) {
+			$location.path('/restaurants/' + ref.name());
+			$scope.restaurant = {name: '', address: '', city: '', state: ''};
+		});
 	};
-	$scope.deleteRestaurant = function (index) {
-		$scope.restaurants.splice(index, 1);
+	$scope.saveRestaurant = function (restaurant) {
+		Restaurant.save(restaurant).then(function () {
+			$location.path('/restaurants/');
+		});
+	};
+	$scope.deleteRestaurant = function (restaurant) {
+		Restaurant.delete(restaurant);
 	};
 });
