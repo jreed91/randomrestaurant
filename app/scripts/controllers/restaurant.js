@@ -3,21 +3,16 @@
 app.controller('restaurantCtrl', function($scope, $location, Restaurant, geolocation, Foursquare){
 
 
-  	geolocation.getLocation().then(function(data){
-      $scope.coords = data.coords.latitude + ',' + data.coords.longitude;
-    });
+  	// geolocation.getLocation().then(function(data){
+   //    $scope.coords = data.coords.latitude + ',' + data.coords.longitude;
+   //  });
+
+	$scope.venues = [];
 
 
-
-
-	Foursquare.venues($scope.coords)
+	Foursquare.venues()
 		.success(function(data, status, headers){
-			if (angular.isArray(data.Venues.Venue)) {
-				$scope.venues = data.Venues.Venue;
-			}
-			else {
-				$scope.venues = [data.Venues.Venue];
-			}
+			$scope.venues = data;
 		});
 	
 	angular.forEach($scope.venues, function(venue) {
