@@ -3,7 +3,7 @@
 		<div ng-repeat="venueItem in venue">
 			<div ng-repeat="v in venueItem" class="panel panel-default">
 				<div class="panel-heading">
-					<a ng-href="#/restaurants/{{ v.id }}">{{v.name}}</a>
+					<a ng-href="#/venues/{{ v.id }}">{{v.name}}</a>
 				</div>
 				<div class="panel-body">
 					<address ng-hide="edit">

@@ -26,7 +26,7 @@ var app = angular
         templateUrl: 'views/restaurants.html',
         controller: 'restaurantCtrl'
       })
-       .when('/restaurants/:restaurantId', {
+       .when('/venues/:venueId', {
         templateUrl: 'views/restaurantview.html',
         controller: 'RestaurantViewCtrl'
       })

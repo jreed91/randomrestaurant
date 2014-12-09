@@ -20,7 +20,9 @@ app.factory('Foursquare', function($http, $q){
 		_coords = coords;
 	}
 
-
+	service.setVenue = function(venueId) {
+		makeUrl
+	}
 
 	service.getVenues = function (){
 		makeUrl();
