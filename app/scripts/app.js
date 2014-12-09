@@ -17,8 +17,7 @@ var app = angular
     'ngSanitize',
     'ngTouch',
     'firebase',
-    "geolocation",
-    "angularUtils.directives.dirPagination"
+    "geolocation"
   ])
   .constant('FIREBASE_URL', 'https://randomrestaurant.firebaseio.com/')
   .config(function ($routeProvider) {
