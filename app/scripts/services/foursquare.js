@@ -33,7 +33,7 @@ app.factory('Foursquare', function($http, $q){
 		var deferred = $q.defer();
 		$http({
 			method: 'GET',
-			url: baseUrl + 'search?client_id=' + client_id + '&client_secret=' + client_secret + '&ll=' + _coords + '&v=20130815&intent=browse&radius=800'
+			url: baseUrl + 'explore?client_id=' + client_id + '&client_secret=' + client_secret + '&ll=' + _coords + '&v=20130815&radius=800'
 		}).success(function(data){
 			deferred.resolve(data);
 		}).error(function(){

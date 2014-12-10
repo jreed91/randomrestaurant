@@ -1,16 +1,17 @@
 <div class="col-md-12">
-	<div ng-repeat="venue in venues">
-		<div ng-repeat="venueItem in venue">
-			<div ng-repeat="v in venueItem" class="panel panel-default">
+	<input class="form-control" ng-model="searchTerm">
+	{{venues[0].items[0].venue.name}}
+	<div ng-repeat="group in venues"
+		<div ng-repeat="item in group">	
 				<div class="panel-heading">
-					<a ng-href="#/venues/{{ v.id }}">{{v.name}}</a>
+					<a ng-href="#/venues/{{ item.id }}">{{item.venue.name}}</a>
 				</div>
 				<div class="panel-body">
 					<address ng-hide="edit">
-					  <strong>{{v.name}}</strong><br>
-					  {{v.location.address}}<br>
-					   {{v.location.city}}, {{v.location.state}}<br>
-					   {{v.contact.formattedPhone}}
+					  <strong>{{item.name}}</strong><br>
+					  {{item.location.address}}<br>
+					   {{item.location.city}}, {{item.location.state}}<br>
+					   {{item.contact.formattedPhone}}
 					</address>
 		<!-- 			<form role="form" class="form-horizontal" ng-show="edit" ng-submit="saveRestaurant(restaurant)">
 						<div class="form-group">
@@ -43,7 +44,6 @@
 			</div>
 		</div>
 	</div>
-</div>
 
 
 

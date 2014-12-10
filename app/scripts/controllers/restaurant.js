@@ -9,7 +9,7 @@ app.controller('restaurantCtrl', function($scope, $location, Restaurant, geoloca
       Foursquare.setCoords($scope.data.coords);
       Foursquare.getVenues()
 		.then(function(data){
-		$scope.venues = data;
+		$scope.venues = data.response.groups;
 		}, function(data){
 
 		});
