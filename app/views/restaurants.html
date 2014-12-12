@@ -1,17 +1,15 @@
 <div class="col-md-12">
-	<input class="form-control" ng-model="searchTerm">
-	{{venues[0].items[0].venue.name}}
-	<div ng-repeat="group in venues"
-		<div ng-repeat="item in group">	
+	<input class="form-control" ng-model="searchTerm"><br>
+		<div ng-repeat="item in venues | filter:searchTerm" class="panel panel-default">	
 				<div class="panel-heading">
-					<a ng-href="#/venues/{{ item.id }}">{{item.venue.name}}</a>
+					<a ng-href="#/venues/{{ item.venue.id }}">{{item.venue.name}}</a>
 				</div>
 				<div class="panel-body">
 					<address ng-hide="edit">
-					  <strong>{{item.name}}</strong><br>
-					  {{item.location.address}}<br>
-					   {{item.location.city}}, {{item.location.state}}<br>
-					   {{item.contact.formattedPhone}}
+					  <strong>{{item.venue.name}}</strong><br>
+					  {{item.venue.location.address}}<br>
+					   {{item.venue.location.city}}, {{item.location.state}}<br>
+					   {{item.venue.contact.formattedPhone}}
 					</address>
 		<!-- 			<form role="form" class="form-horizontal" ng-show="edit" ng-submit="saveRestaurant(restaurant)">
 						<div class="form-group">
