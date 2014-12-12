@@ -16,6 +16,7 @@ app.factory('Foursquare', function($resource){
 		action: 'explore',
 		client_id: requestParams.client_id,
 		client_secret: requestParams.client_secret,
+		
 		v: requestParams.version,
 		callback: 'JSON_CALLBACK'
 	},
