@@ -1,3 +1,5 @@
+'use strict';
+
 app.filter("venueNameCategoryFilter", function() {
 	return function (venues, filterValue) {
 		if (!filterValue) return venues;

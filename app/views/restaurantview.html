@@ -1,6 +1,9 @@
 
 <div>
-  <a ng-href="#/venues/{{ venue.id }}">{{ venue.name }}</a>
+  <a ng-href="#/venues/{{ venue.id }}"><h2>{{ venue.name }}</h2></a>
 </div>
+<div ng-hide="{{venue.hasMenu}}">
 
+{{venue.menu.url}}
+</div>
 <a ng-href="#/venues">Back to Posts</a>
