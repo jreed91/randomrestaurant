@@ -1,47 +1,55 @@
 <div class="col-md-12">
-	<input class="form-control" ng-model="searchTerm"><br>
-		<div ng-repeat="item in venues | filter:searchTerm" class="panel panel-default">	
-				<div class="panel-heading">
-					<a ng-href="#/venues/{{ item.venue.id }}">{{item.venue.name}}</a>
-				</div>
-				<div class="panel-body">
-					<address ng-hide="edit">
-					  <strong>{{item.venue.name}}</strong><br>
-					  {{item.venue.location.address}}<br>
-					   {{item.venue.location.city}}, {{item.location.state}}<br>
-					   {{item.venue.contact.formattedPhone}}
-					</address>
-		<!-- 			<form role="form" class="form-horizontal" ng-show="edit" ng-submit="saveRestaurant(restaurant)">
-						<div class="form-group">
-							<label for="address" class="col-sm-2 control-label">Address</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" placeholder="Address" ng-model="restaurant.address"/>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="city" class="col-sm-2 control-label">City</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control"  ng-model="restaurant.city"/>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="state" class="col-sm-2 control-label">State</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control"  ng-model="restaurant.state"/>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-						      <input type="Submit" value="Save Restaurant" class="btn btn-primary" />
-						    </div>
-						</div>
-					</form>
-					<button class="btn btn-default" ng-hide="edit" ng-click="edit = !edit">Edit</a>
-					<button class="btn btn-danger pull-right" ng-hide="edit" ng-click="deleteRestaurant(restaurant)">delete</a></button> -->
-				</div>
+	<form class="form-horizontal">
+		<div class="form-group">
+
+			<div>
+				<input type="text" ng-model="exploreQuery" class="form-control" placeholder="Search by category"/>
+			</div>
+			<div>
+				<button class="btn btn-primary pull-right" ng-click="doSearch()"><span class="glyphicon glyphicon-search"></span>Explore</button>
 			</div>
 		</div>
-	</div>
 
+		<div class="well well-sm" ng-show="totalRecordsCount == 0">
+			<h5>No places found near ({{location}})</h5>
+		</div>
 
-
+		<div ng-show="totalRecordsCount > 0">
+			<div>
+				<div>
+					<input type="text" ng-model="filterValue" class="form-control" placeholder="Filter Venues"/>
+				</div>
+			</div>
+			<ul class="list-group" ng-repeat="item in filteredVenues">
+				<li class="list-group-item">
+					<div class="row">
+						<div>
+							<a ng-href="#/venues/{{item.venue.id}}"><h2 class="venueName">{{item.venue.name}}</h2></a>
+						</div>
+					</div>
+					<div class="row">
+						<div>
+							<span>{{item.venue.rating}}</span>
+						</div>
+						<div>
+						  	<p class="text-warning"><small>{{(item.venue.location.address != null) && item.venue.location.address}} - {{item.venue.categories[0].shortName}}</small></p>
+                            <p>{{item.tips[0].text}}</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+        	<div class="col-md-offset-2 col-md-8 col-md-offset-2 text-center">
+                <div data-ng-show="totalRecordsCount > 0">
+                    <div>
+                        <div data-pagination="" data-previous-text="<" data-next-text=">" data-first-text="<<" data-last-text=">>"
+                            data-on-select-page="pageChanged(page)" data-total-items="totalRecordsCount" data-page="currentPage"
+                            data-boundary-links="true" class="pagination pagination-sm" data-max-size="5" data-rotate="false" data-items-per-page="10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</form>
+</div>

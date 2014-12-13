@@ -2,10 +2,6 @@
 
 app.controller('restaurantCtrl', function($scope, $filter, $location, Restaurant, geolocation, Foursquare){
 
-$scope.location = geolocation.getLocation().then(function(data){
-	return data.coords.latitude + ',' + data.coords.longitude;
-});
-
 $scope.exploreQuery = '';
 $scope.filterValue = '';
 
@@ -22,16 +18,23 @@ init();
 
 function init() {
 	createWatcher();
-	getVenues();
+
+	geolocation.getLocation().then(function(data){
+		$scope.location = data.coords.latitude + ',' + data.coords.longitude;
+		getVenues();
+	});
+	
 }
 
 function getVenues() {
+
 	var offset = ($scope.pageSize) * ($scope.currentPage - 1);
 
-	Foursquare.get({ll: $scope.location, query: $scope.exploreQuery, limit: $scope.pageSize, offset: offset}, function(venuesResults) {
+	Foursquare.get({action: 'explore',ll: $scope.location, query: $scope.exploreQuery, limit: $scope.pageSize, offset: offset}, function(venuesResult) {
 		if (venuesResult.response.groups) {
-			$scope.venues = venuesResult.response.group[0].items;
+			$scope.venues = venuesResult.response.groups[0].items;
 			$scope.totalRecordsCount = venuesResult.response.totalResults;
+			filterVenues('');
 		}
 		else {
 			$scope.venues = [];

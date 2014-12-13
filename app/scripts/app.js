@@ -17,7 +17,8 @@ var app = angular
     'ngSanitize',
     'ngTouch',
     'firebase',
-    'geolocation'
+    'geolocation',
+    'ui.bootstrap'
   ])
   .constant('FIREBASE_URL', 'https://randomrestaurant.firebaseio.com/')
   .config(function ($routeProvider) {

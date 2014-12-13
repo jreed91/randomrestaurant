@@ -2,10 +2,17 @@
 
 app.controller('RestaurantViewCtrl', function ($scope, $routeParams, Foursquare) {
 	$scope.venue = [];
+	getVenue();
 
-	Foursquare.getVenue($routeParams.venueId)
-		.then(function(data){
-		$scope.venue = data;
-		}, function(data){
-	});
+	function getVenue() {
+
+		Foursquare.get({action: $routeParams.venueId}, function(venueResult) {
+			if (venueResult.response.venue) {
+				$scope.venue = venueResult.response.venue;
+			}
+			else {
+				$scope.venue = [];
+			}
+		});
+	};
 });
