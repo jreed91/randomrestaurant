@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('restaurantCtrl', function($scope, $filter, $location, Restaurant, geolocation, Foursquare){
+app.controller('restaurantCtrl', function($scope, $window, $filter, $location, Restaurant, geolocation, Foursquare){
 
 $scope.exploreQuery = '';
 $scope.filterValue = '';
