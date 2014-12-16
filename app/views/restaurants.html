@@ -13,7 +13,8 @@
 		<div class="well well-sm" ng-show="totalRecordsCount == 0">
 			<h5>No places found near ({{location}})</h5>
 		</div>
-		
+		 <button ng-click="getRand()">Get Random Restaurant</button>
+      <modal-dialog show="modalShown" width='750px' height='90%' ></modal-dialog>
 		<div ng-show="totalRecordsCount > 0">
 			<div>
 				<div>

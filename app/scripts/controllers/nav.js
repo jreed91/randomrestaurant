@@ -6,10 +6,4 @@ app.controller('NavCtrl', function($scope, $window, $rootScope){
 		$scope.modalShown = !$scope.modalShown;
 	};
 
-	$scope.getRand = function () {
-	var venues = $scope.venues;
-	console.log(venues);
-	var rand = venues[Math.floor(Math.random() * venues.length)];
-	$window.location.href = "#/venues/" + rand.venue.id;
-	};
 });
