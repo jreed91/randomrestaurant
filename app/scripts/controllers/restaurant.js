@@ -81,34 +81,30 @@ $scope.getRand = function () {
 
 
 
-	// $scope.data = {};
-	// $scope.venues = [];
-
- //  	geolocation.getLocation().then(function(data){
- //      $scope.data.coords = data.coords.latitude + ',' + data.coords.longitude;
- //      Foursquare.setCoords($scope.data.coords);
- //      Foursquare.getVenues()
-	// 	.then(function(data){
-	// 	$scope.venues = data.response.groups[0].items;
-	// 	}, function(data){
-
-	// 	});
- //    });
 
 	// $scope.restaurants = Restaurant.all;
-	// $scope.restaurant = {name: '', address: '', city: '', state: ''};
+	// $scope.venue =  {id: '', name: '', 
+	// 		location: [{address: '', city: '', state: ''}],
+	// 		eaten: '', banned: ''
+	// 	};
 
-	// $scope.submitRestaurant = function () {
-	// 	Restaurant.create($scope.restaurant).then(function (ref) {
-	// 		$location.path('/restaurants/' + ref.name());
-	// 		$scope.restaurant = {name: '', address: '', city: '', state: ''};
-	// 	});
-	// };
-	// $scope.saveRestaurant = function (restaurant) {
-	// 	Restaurant.save(restaurant).then(function () {
-	// 		$location.path('/restaurants/');
-	// 	});
-	// };
+	$scope.submitRestaurant = function (venue) {
+		venue = {id: venue.id, name: venue.name, 
+			location: [{address: venue.location.address, city: venue.location.city, state: venue.location.state}],
+			eaten: 0, banned: 0 
+		};
+		Restaurant.create(venue).then(function (ref) {
+			$location.path('/venues/'+ venue.id);
+		});
+	};
+	$scope.eatRestaurant = function (venue) {
+		var venueObj = Restaurant.get(venue.id);
+		venueObj.eaten += 1;
+		console.log(venueObj);
+		Restaurant.save(venueObj).then(function () {
+			$location.path('/venues/');
+		});
+	};
 	// $scope.deleteRestaurant = function (restaurant) {
 	// 	Restaurant.delete(restaurant);
 	// };
