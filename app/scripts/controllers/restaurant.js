@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('restaurantCtrl', function($scope, $window, $filter, $location, Restaurant, geolocation, Foursquare){
+app.controller('restaurantCtrl', function(FIREBASE_URL, $scope, $window, $filter, $location, Restaurant, geolocation, Foursquare){
 
 $scope.exploreQuery = '';
 $scope.filterValue = '';
@@ -98,12 +98,16 @@ $scope.getRand = function () {
 		});
 	};
 	$scope.eatRestaurant = function (venue) {
-		var venueObj = Restaurant.get(venue.id);
-		venueObj.eaten += 1;
-		console.log(venueObj);
-		Restaurant.save(venueObj).then(function () {
-			$location.path('/venues/');
+		var ref = new Firebase(FIREBASE_URL);
+		ref.child('restaurants').orderByChild('id').equalTo(venue.id).on("child_added", function(snapshot){
+			
+			snapshot.val().eaten += 1;
+			console.log(snapshot.val().eaten);
 		});
+
+		// Restaurant.save(venueObj).then(function () {
+		// 	$location.path('/venues/');
+		// });
 	};
 	// $scope.deleteRestaurant = function (restaurant) {
 	// 	Restaurant.delete(restaurant);
