@@ -66,7 +66,6 @@ $scope.pageChanged = function(page) {
 
 $scope.getRand = function () {
 	var venues = $scope.venues;
-	console.log(venues);
 	var rand = venues[Math.floor(Math.random() * venues.length)];
 	$window.location.href = "#/venues/" + rand.venue.id;
 };
@@ -101,13 +100,23 @@ $scope.getRand = function () {
 		var ref = new Firebase(FIREBASE_URL);
 		ref.child('restaurants').orderByChild('id').equalTo(venue.id).on("child_added", function(snapshot){
 			
-			snapshot.val().eaten += 1;
-			console.log(snapshot.val().eaten);
+			var key = snapshot.key();
+			var eaten = snapshot.child('eaten').val();
+			var newEaten = eaten += 1;
+
+			var ref = new Firebase(FIREBASE_URL);
+			var venues = ref.child('restaurants');
+			var venue = venues.child(key);
+			venue.update({"eaten": newEaten}, function(error) {
+				if (error) {
+					alert("Data could not be saved" + error);
+				} else {
+					alert("Data saved");
+				}
+			});
 		});
 
-		// Restaurant.save(venueObj).then(function () {
-		// 	$location.path('/venues/');
-		// });
+		
 	};
 	// $scope.deleteRestaurant = function (restaurant) {
 	// 	Restaurant.delete(restaurant);
