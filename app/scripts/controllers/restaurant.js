@@ -71,16 +71,6 @@ $scope.getRand = function () {
 };
 
 
-
-
-
-
-
-
-
-
-
-
 	// $scope.restaurants = Restaurant.all;
 	// $scope.venue =  {id: '', name: '', 
 	// 		location: [{address: '', city: '', state: ''}],
@@ -90,13 +80,14 @@ $scope.getRand = function () {
 	$scope.submitRestaurant = function (venue) {
 		venue = {id: venue.id, name: venue.name, 
 			location: [{address: venue.location.address, city: venue.location.city, state: venue.location.state}],
-			eaten: 0, banned: 0 
+			eaten: 0, banned: false
 		};
 		Restaurant.create(venue).then(function (ref) {
 			$location.path('/venues/'+ venue.id);
 		});
 	};
 	$scope.eatRestaurant = function (venue) {
+		
 		var ref = new Firebase(FIREBASE_URL);
 		ref.child('restaurants').orderByChild('id').equalTo(venue.id).on("child_added", function(snapshot){
 			
@@ -114,9 +105,27 @@ $scope.getRand = function () {
 					alert("Data saved");
 				}
 			});
-		});
+		});	
+	};
+	$scope.banRestaurant = function (venue) {
+		var ref = new Firebase(FIREBASE_URL);
+		ref.child('restaurants').orderByChild('id').equalTo(venue.id).on("child_added", function(snapshot){
+			
+			var key = snapshot.key();
+			var banned = snapshot.child('banned').val();
+			var newBanned = !banned;
 
-		
+			var ref = new Firebase(FIREBASE_URL);
+			var venues = ref.child('restaurants');
+			var venue = venues.child(key);
+			venue.update({"banned": newBanned}, function(error) {
+				if (error) {
+					alert("Data could not be saved" + error);
+				} else {
+					alert("Data saved");
+				}
+			});
+		});	
 	};
 	// $scope.deleteRestaurant = function (restaurant) {
 	// 	Restaurant.delete(restaurant);

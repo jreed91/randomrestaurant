@@ -10,7 +10,7 @@ app.factory('Restaurant', function($firebase, FIREBASE_URL){
 			return restaurants.$add(restaurant);
 		},
 		get: function (restaurantId) {
-			return $firebase(ref.child('restaurants').child(restaurantId)).$asObject();
+			return $firebase(ref.child('restaurants').orderByChild('id').equalTo(restaurantId)).$asObject();
 		},
 		save: function (restaurant) {
 			return restaurants.$save(restaurant);
